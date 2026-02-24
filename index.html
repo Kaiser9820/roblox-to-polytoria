@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Kaisan's Shirt Converter</title>
+  <title>Kaisan's Tools</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
       --ash:     #888888;
       --fog:     #bbbbbb;
       --white:   #f4f4f2;
-      --pure:    #ffffff;
       --border:  rgba(255,255,255,0.06);
       --border2: rgba(255,255,255,0.12);
     }
@@ -32,12 +31,9 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      /* Matte paper texture via CSS */
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
     }
 
-    /* ── THIN RULE LINES — editorial grid feel ── */
     body::before {
       content: '';
       position: fixed;
@@ -103,18 +99,11 @@
     .hero {
       position: relative; z-index: 1;
       padding: 96px 48px 72px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      align-items: end;
       border-bottom: 1px solid var(--border2);
       max-width: 1100px;
       margin: 0 auto;
       width: 100%;
     }
-    .hero-left { padding-right: 64px; border-right: 1px solid var(--border2); }
-    .hero-right { padding-left: 64px; }
-
     .hero-label {
       font-size: 0.6rem;
       letter-spacing: 0.22em;
@@ -129,7 +118,6 @@
       display: block; width: 24px; height: 1px;
       background: var(--graphite);
     }
-
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 6vw, 5rem);
@@ -138,46 +126,41 @@
       letter-spacing: -0.02em;
       color: var(--white);
       animation: fadeIn 0.8s 0.1s ease both;
+      max-width: 700px;
     }
-    h1 em {
-      font-style: italic;
-      color: var(--fog);
-    }
-
+    h1 em { font-style: italic; color: var(--fog); }
     .hero-desc {
       margin-top: 28px;
       font-size: 0.72rem;
       line-height: 1.9;
       color: var(--ash);
-      max-width: 360px;
+      max-width: 480px;
       animation: fadeIn 0.8s 0.2s ease both;
     }
 
-    .hero-meta {
-      display: flex; flex-direction: column; gap: 20px;
-      animation: fadeIn 0.8s 0.2s ease both;
+    .hero-stats {
+      display: flex; gap: 48px;
+      margin-top: 48px;
+      animation: fadeIn 0.8s 0.3s ease both;
     }
-    .meta-item {
-      display: flex; flex-direction: column; gap: 4px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
     }
-    .meta-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .meta-label {
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
+    .stat-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--steel);
-    }
-    .meta-value {
-      font-size: 0.78rem;
-      color: var(--fog);
-      font-weight: 400;
     }
 
     @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ── MAIN ── */
+    /* ── TOOLS GRID ── */
     main {
       flex: 1;
       max-width: 1100px;
@@ -185,9 +168,6 @@
       width: 100%;
       padding: 64px 48px 100px;
       position: relative; z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
     }
 
     .section-label {
@@ -196,7 +176,7 @@
       text-transform: uppercase;
       color: var(--steel);
       display: flex; align-items: center; gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 28px;
     }
     .section-label::after {
       content: '';
@@ -204,158 +184,152 @@
       background: var(--border2);
     }
 
-    /* ── UPLOAD ── */
-    .upload-zone {
-      width: 100%;
-      border: 1px solid var(--border2);
-      border-radius: 2px;
-      background: var(--ink);
-      padding: 64px 48px;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      cursor: pointer;
-      transition: border-color 0.3s, background 0.3s;
-      outline: none;
-      position: relative;
-      animation: fadeIn 0.8s 0.3s ease both;
-    }
-    /* Corner marks — editorial detail */
-    .upload-zone::before, .upload-zone::after {
-      content: '';
-      position: absolute;
-      width: 12px; height: 12px;
-      border-color: var(--graphite);
-      border-style: solid;
-      transition: border-color 0.3s;
-    }
-    .upload-zone::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-    .upload-zone::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-    .upload-zone:hover, .upload-zone.drag-over {
-      border-color: rgba(255,255,255,0.28);
-      background: var(--charcoal);
-    }
-    .upload-zone:hover::before, .upload-zone:hover::after,
-    .upload-zone.drag-over::before, .upload-zone.drag-over::after {
-      border-color: var(--fog);
-    }
-
-    .upload-icon {
-      color: var(--graphite);
-      transition: color 0.3s, transform 0.3s;
-    }
-    .upload-zone:hover .upload-icon { color: var(--ash); transform: translateY(-3px); }
-
-    .upload-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--fog);
-      letter-spacing: -0.01em;
-    }
-    .upload-hint {
-      font-size: 0.62rem;
-      color: var(--steel);
-      letter-spacing: 0.1em;
-    }
-    .upload-formats {
-      font-size: 0.58rem;
-      color: var(--graphite);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    /* ── STATUS ── */
-    .status-bar {
-      display: none;
-      align-items: center; gap: 14px;
-      padding: 14px 20px;
-      background: var(--ink);
-      border: 1px solid var(--border2);
-      border-radius: 2px;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-    }
-    .status-bar.visible { display: flex; }
-    .status-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--ash); flex-shrink: 0;
-      animation: pulse 1.4s infinite;
-    }
-    .status-dot.done { background: var(--fog); animation: none; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
-    .status-text { color: var(--ash); flex: 1; }
-    .status-progress {
-      width: 120px; height: 1px;
-      background: var(--graphite);
-    }
-    .status-progress-fill {
-      height: 100%;
-      background: var(--fog);
-      transition: width 0.4s ease;
-      width: 0%;
-    }
-
-    /* ── RESULT ── */
-    .result-card {
-      display: none;
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border2);
       border: 1px solid var(--border2);
       border-radius: 2px;
       overflow: hidden;
-      animation: fadeIn 0.5s ease both;
+      margin-bottom: 64px;
     }
-    .result-card.visible { display: block; }
-    .result-header {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border2);
-      display: flex; align-items: center; justify-content: space-between;
+
+    .tool-card {
       background: var(--ink);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      transition: background 0.25s;
+      overflow: hidden;
     }
-    .result-header-left { display: flex; align-items: center; gap: 12px; }
-    .result-label {
+    .tool-card::before, .tool-card::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+      border-color: var(--graphite);
+      border-style: solid;
+      transition: border-color 0.25s;
+    }
+    .tool-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+    .tool-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+    .tool-card:hover { background: var(--charcoal); }
+    .tool-card:hover::before, .tool-card:hover::after { border-color: var(--fog); }
+
+    .tool-card.coming-soon {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .tool-number {
       font-size: 0.58rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--steel);
     }
-    .result-ready {
-      font-size: 0.58rem;
+    .tool-icon {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border2);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ash);
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .tool-card:hover .tool-icon { color: var(--fog); border-color: rgba(255,255,255,0.2); }
+
+    .tool-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .tool-name em { font-style: italic; color: var(--fog); }
+
+    .tool-desc {
+      font-size: 0.65rem;
+      line-height: 1.85;
+      color: var(--ash);
+      flex: 1;
+    }
+
+    .tool-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .tool-tag {
+      font-size: 0.55rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--fog);
+      color: var(--steel);
       padding: 3px 10px;
       border: 1px solid var(--border2);
     }
-    .result-body {
-      padding: 28px;
-      background: var(--charcoal);
-      background-image: repeating-conic-gradient(rgba(255,255,255,0.015) 0% 25%, transparent 0% 50%) 0 0 / 16px 16px;
+    .tool-arrow {
+      font-size: 0.75rem;
+      color: var(--steel);
+      transition: color 0.25s, transform 0.25s;
     }
-    #destinationCanvas { width:100%; height:auto; display:block; }
+    .tool-card:hover .tool-arrow { color: var(--white); transform: translateX(4px); }
 
-    .btn-row { display: flex; gap: 8px; }
-
-    .btn {
-      font-family: 'Martian Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.14em;
+    .coming-tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 9px 18px;
+      color: var(--steel);
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── DOWNLOAD SECTION ── */
+    .downloads {
+      margin-top: 0;
+    }
+    .download-row {
+      display: flex; align-items: center;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border2);
+      gap: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
       border-radius: 2px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      display: flex; align-items: center; gap: 7px;
     }
-    .btn-primary {
-      background: var(--white);
-      color: var(--black);
-      border: 1px solid var(--white);
-    }
-    .btn-primary:hover { background: var(--fog); border-color: var(--fog); }
-    .btn-secondary {
-      background: transparent;
-      color: var(--ash);
+    .download-row:first-of-type { border-top: 1px solid var(--border2); }
+    .download-row:hover .download-name { color: var(--white); }
+    .download-row:hover .download-arrow { color: var(--white); transform: translateX(4px); }
+
+    .download-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
       border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ash);
+      font-size: 0.7rem;
     }
-    .btn-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+    .download-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .download-name {
+      font-size: 0.75rem;
+      color: var(--fog);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .download-meta {
+      font-size: 0.58rem;
+      color: var(--steel);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .download-arrow {
+      font-size: 0.75rem;
+      color: var(--graphite);
+      transition: color 0.2s, transform 0.2s;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -384,13 +358,12 @@
     .footer-right a { color: var(--ash); text-decoration: none; transition: color 0.2s; }
     .footer-right a:hover { color: var(--white); }
 
-    #imageInput, #sourceCanvas { display: none; }
-
     @media (max-width: 700px) {
-      .hero { grid-template-columns: 1fr; padding: 56px 24px 48px; }
-      .hero-left { padding-right: 0; border-right: none; padding-bottom: 40px; border-bottom: 1px solid var(--border2); }
-      .hero-right { padding-left: 0; padding-top: 40px; }
+      nav { padding: 0; }
+      .hero { padding: 56px 24px 48px; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
       main { padding: 40px 24px 80px; }
+      .tools-grid { grid-template-columns: 1fr; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
@@ -399,227 +372,137 @@
 
 <nav>
   <div class="nav-left">
-    <span class="nav-logo">RBX ↔ PT</span>
+    <span class="nav-logo">Kaisan's Tools</span>
     <span class="nav-status">
       <span class="nav-status-dot"></span>
-      Online
+      Tools
     </span>
   </div>
   <div class="nav-right">
-    <a href="pt2rbx.html" class="nav-link">PT → RBX Converter ↗</a>
+    <a href="https://github.com/Kaiser9820/roblox-to-polytoria" class="nav-link" target="_blank">GitHub ↗</a>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="hero-left">
-    <div class="hero-label">Kaisan's Shirt Converter</div>
-    <h1>Roblox<br>to <em>Polytoria</em><br>Shirts.</h1>
-    <p class="hero-desc">
-      Upload any Roblox shirt template. The converter remaps every region to Polytoria's UV layout and produces a download-ready PNG — entirely in your browser. Made w/ <3 by Kaisan!
-    </p>
-  </div>
-  <div class="hero-right">
-    <div class="hero-meta">
-      <div class="meta-item">
-        <span class="meta-label">Processing</span>
-        <span class="meta-value">Client-side only</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Output</span>
-        <span class="meta-value">1024 × 1024 PNG</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Input format</span>
-        <span class="meta-value">PNG, JPG, WEBP</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Cost</span>
-        <span class="meta-value">Free, always</span>
-      </div>
+  <div class="hero-label">Roblox ↔ Polytoria</div>
+  <h1>Community<br><em>Tools</em> for<br>Polytoria and Roblox.</h1>
+  <p class="hero-desc">
+    A collection of free, open-source conversion and utility tools for the Polytoria community. Everything runs in your browser — no accounts, no ads, no cost. Made with <3 by Kaisan!!
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Tools</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">0</span>
+      <span class="stat-label">Server calls</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">Free</span>
+      <span class="stat-label">Always</span>
     </div>
   </div>
 </div>
 
 <main>
-  <div class="section-label">01 — Upload</div>
+  <div class="section-label">Tools</div>
 
-  <button class="upload-zone" id="uploadButton" aria-label="Upload shirt template">
-    <div class="upload-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="17 8 12 3 7 8"/>
-        <line x1="12" y1="3" x2="12" y2="15"/>
-      </svg>
-    </div>
-    <span class="upload-title">Drop template here</span>
-    <span class="upload-hint">or click to browse</span>
-    <span class="upload-formats">PNG · JPG · WEBP · 585 × 559 recommended</span>
-  </button>
+  <div class="tools-grid">
 
-  <div class="status-bar" id="statusBar">
-    <span class="status-dot" id="statusDot"></span>
-    <span class="status-text" id="statusText">Processing…</span>
-    <div class="status-progress">
-      <div class="status-progress-fill" id="progressFill"></div>
+    <!-- Tool 1 -->
+    <a href="roblox-to-polytoria-shirt-converter.html" class="tool-card">
+      <div class="tool-number">01</div>
+      <div class="tool-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+        </svg>
+      </div>
+      <div class="tool-name">RBX → <em>PT</em><br>Shirt Converter</div>
+      <p class="tool-desc">Upload any Roblox shirt template and get a pixel-perfect Polytoria-compatible PNG. Remaps all torso and arm regions automatically.</p>
+      <div class="tool-meta">
+        <span class="tool-tag">Web App</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- Tool 2 -->
+    <a href="pt2rbx.html" class="tool-card">
+      <div class="tool-number">02</div>
+      <div class="tool-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+        </svg>
+      </div>
+      <div class="tool-name">PT → <em>RBX</em><br>Shirt Converter</div>
+      <p class="tool-desc">The reverse — convert a Polytoria shirt template back to Roblox format. Same instant, in-browser processing.</p>
+      <div class="tool-meta">
+        <span class="tool-tag">Web App</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- Tool 3 — Coming Soon -->
+    <div class="tool-card coming-soon">
+      <div class="tool-number">03</div>
+      <div class="tool-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+      </div>
+      <div class="tool-name"><em>Studio</em><br>Plugin</div>
+      <p class="tool-desc">A Roblox Studio plugin to streamline exporting and converting clothing assets directly from the editor.</p>
+      <div class="tool-meta">
+        <span class="coming-tag">Coming Soon</span>
+      </div>
     </div>
+
+    <!-- Placeholder slot -->
+    <div class="tool-card coming-soon">
+      <div class="tool-number">04</div>
+      <div class="tool-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+      <div class="tool-name"><em>More</em><br>Coming.</div>
+      <p class="tool-desc">More tools are in the works. Check back or watch the GitHub repo for updates.</p>
+      <div class="tool-meta">
+        <span class="coming-tag">TBA</span>
+      </div>
+    </div>
+
   </div>
 
-  <div class="result-card" id="resultCard">
-    <div class="result-header">
-      <div class="result-header-left">
-        <span class="result-label">02 — Output</span>
-        <span class="result-ready">Ready</span>
+  <div class="section-label">Downloads</div>
+
+  <div class="downloads">
+    <a href="plugin.rbxm" class="download-row" download>
+      <div class="download-icon">.rbxm</div>
+      <div class="download-info">
+        <span class="download-name">Polytoria Studio Plugin</span>
+        <span class="download-meta">Roblox Studio Plugin · Coming Soon</span>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-secondary" id="copyBtn">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="1" ry="1"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy
-        </button>
-        <button class="btn btn-primary" id="downloadBtn">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Download PNG
-        </button>
+      <span class="download-arrow">↓</span>
+    </a>
+    <a href="roblox-to-polytoria-shirt-converter.html" class="download-row">
+      <div class="download-icon">.html</div>
+      <div class="download-info">
+        <span class="download-name">RBX → PT Shirt Converter</span>
+        <span class="download-meta">Web App · In-browser</span>
       </div>
-    </div>
-    <div class="result-body">
-      <canvas id="destinationCanvas" width="1024" height="1024"></canvas>
-    </div>
+      <span class="download-arrow">→</span>
+    </a>
   </div>
+
 </main>
 
 <footer>
-  <span class="footer-left">© Kaisan</span>
-  <span class="footer-right">No data leaves your device &nbsp;·&nbsp; <a href="pt2rbx.html">PT → RBX</a></span>
+  <span class="footer-left">Kaiser9820 · Polytoria Community</span>
+  <span class="footer-right"><a href="https://github.com/Kaiser9820/roblox-to-polytoria" target="_blank">View on GitHub ↗</a></span>
 </footer>
 
-<input type="file" accept="image/*" id="imageInput">
-<canvas id="sourceCanvas" width="1024" height="1024"></canvas>
-
-<script>
-  const sourceCanvas = document.getElementById('sourceCanvas');
-  const sourceCtx    = sourceCanvas.getContext('2d');
-  const destCanvas   = document.getElementById('destinationCanvas');
-  const destCtx      = destCanvas.getContext('2d');
-  const imageInput   = document.getElementById('imageInput');
-  const uploadButton = document.getElementById('uploadButton');
-  const statusBar    = document.getElementById('statusBar');
-  const statusDot    = document.getElementById('statusDot');
-  const statusText   = document.getElementById('statusText');
-  const progressFill = document.getElementById('progressFill');
-  const resultCard   = document.getElementById('resultCard');
-  const downloadBtn  = document.getElementById('downloadBtn');
-  const copyBtn      = document.getElementById('copyBtn');
-
-  let outputDataURL = null;
-
-  imageInput.addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]); });
-  uploadButton.addEventListener('click', () => imageInput.click());
-  uploadButton.addEventListener('dragover', e => { e.preventDefault(); uploadButton.classList.add('drag-over'); });
-  uploadButton.addEventListener('dragleave', () => uploadButton.classList.remove('drag-over'));
-  uploadButton.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadButton.classList.remove('drag-over');
-    if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]);
-  });
-
-  function setProgress(pct) { progressFill.style.width = pct + '%'; }
-
-  function processFile(file) {
-    statusBar.classList.add('visible');
-    statusDot.classList.remove('done');
-    statusText.textContent = 'Loading image…';
-    resultCard.classList.remove('visible');
-    setProgress(10);
-
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const img = new Image();
-      img.onload = () => {
-        setProgress(30);
-        statusText.textContent = 'Remapping regions…';
-        sourceCtx.clearRect(0, 0, 1024, 1024);
-        sourceCtx.drawImage(img, 0, 0);
-        setTimeout(processImage, 60);
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  const regions = [
-    {cropX:231,cropY:74, cropW:128,cropH:128,pasteX:199,pasteY:184,rW:202,rH:202},
-    {cropX:231,cropY:8,  cropW:128,cropH:64, pasteX:199,pasteY:74, rW:202,rH:102},
-    {cropX:231,cropY:204,cropW:128,cropH:64, pasteX:199,pasteY:395,rW:202,rH:102},
-    {cropX:165,cropY:74, cropW:64, cropH:128,pasteX:89, pasteY:184,rW:102,rH:202},
-    {cropX:361,cropY:74, cropW:64, cropH:128,pasteX:409,pasteY:184,rW:102,rH:202},
-    {cropX:427,cropY:74, cropW:128,cropH:128,pasteX:519,pasteY:184,rW:202,rH:202},
-    {cropX:217,cropY:289,cropW:64,cropH:64, pasteX:382,pasteY:557,rW:102,rH:102},
-    {cropX:217,cropY:355,cropW:64,cropH:128,pasteX:382,pasteY:667,rW:102,rH:202},
-    {cropX:151,cropY:355,cropW:64,cropH:128,pasteX:272,pasteY:667,rW:102,rH:202},
-    {cropX:85, cropY:355,cropW:64,cropH:128,pasteX:162,pasteY:667,rW:102,rH:202},
-    {cropX:19, cropY:355,cropW:64,cropH:128,pasteX:52, pasteY:667,rW:102,rH:202},
-    {cropX:217,cropY:485,cropW:64,cropH:64, pasteX:382,pasteY:877,rW:102,rH:102},
-    {cropX:308,cropY:289,cropW:64,cropH:64, pasteX:538,pasteY:557,rW:102,rH:102},
-    {cropX:308,cropY:355,cropW:64,cropH:128,pasteX:538,pasteY:667,rW:102,rH:202},
-    {cropX:374,cropY:355,cropW:64,cropH:128,pasteX:649,pasteY:667,rW:102,rH:202},
-    {cropX:440,cropY:355,cropW:64,cropH:128,pasteX:759,pasteY:667,rW:102,rH:202},
-    {cropX:506,cropY:355,cropW:64,cropH:128,pasteX:870,pasteY:667,rW:102,rH:202},
-    {cropX:308,cropY:485,cropW:64,cropH:64, pasteX:538,pasteY:877,rW:102,rH:102},
-  ];
-
-  function processImage() {
-    destCtx.clearRect(0, 0, 1024, 1024);
-    sourceCtx.imageSmoothingEnabled = true;
-    sourceCtx.imageSmoothingQuality = 'high';
-
-    regions.forEach((r, i) => {
-      const tmp = document.createElement('canvas');
-      tmp.width = r.rW; tmp.height = r.rH;
-      const tc = tmp.getContext('2d');
-      tc.imageSmoothingEnabled = true;
-      tc.imageSmoothingQuality = 'high';
-      tc.drawImage(sourceCanvas, r.cropX, r.cropY, r.cropW, r.cropH, 0, 0, r.rW, r.rH);
-      destCtx.putImageData(tc.getImageData(0, 0, r.rW, r.rH), r.pasteX, r.pasteY);
-      setProgress(30 + Math.round(((i + 1) / regions.length) * 65));
-    });
-
-    outputDataURL = destCanvas.toDataURL('image/png');
-    setProgress(100);
-    statusDot.classList.add('done');
-    statusText.textContent = 'Complete.';
-    resultCard.classList.add('visible');
-  }
-
-  downloadBtn.addEventListener('click', () => {
-    if (!outputDataURL) return;
-    const a = document.createElement('a');
-    a.href = outputDataURL;
-    a.download = 'output.png';
-    a.click();
-  });
-
-  copyBtn.addEventListener('click', async () => {
-    if (!outputDataURL) return;
-    try {
-      const res = await fetch(outputDataURL);
-      const blob = await res.blob();
-      await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
-      copyBtn.textContent = 'Copied';
-      setTimeout(() => {
-        copyBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="1" ry="1"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy`;
-      }, 2000);
-    } catch {
-      copyBtn.textContent = 'Failed';
-      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
-    }
-  });
-</script>
 </body>
 </html>
